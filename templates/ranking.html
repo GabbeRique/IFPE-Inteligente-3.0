@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Ranking - EcoScan IFPE</title>
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+
+<style>
+    #loading{
+  position:fixed;
+  inset:0;
+  background: linear-gradient(180deg, #7A2BFF 0%, #19CFFF 100%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.loader-box{
+  text-align:center;
+  color:#fff;
+}
+
+.recycle{
+  font-size:70px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom:10px;
+}
+
+.loader-box h2{
+  font-size:22px;
+  font-weight:700;
+}
+
+.loader-box p{
+  font-size:14px;
+  opacity:.95;
+}
+
+/* animação */
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+body {
+    background: linear-gradient(180deg, #6d27f5, #263d9d);
+    color: white;
+    overflow-x: hidden;
+}
+
+
+.main {
+    min-height: 100vh;
+    padding: 40px 20px 140px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+
+.ranking-container {
+    width: 90%;
+    max-width: 420px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+.ranking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.posicao {
+    font-size: 1.1rem;
+}
+
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: space-around;
+    padding: 14px 0;
+    z-index: 10;
+}
+
+.navbar a {
+    color: white;
+    font-size: 1.4rem;
+    text-decoration: none;
+}
+
+.particle {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.9;
+    animation: float 6s infinite ease-in-out;
+    z-index: 0;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+.blue { background: #00C2FF; }
+.green { background: #11FF89; }
+.yellow { background: #FFD447; }
+.pink { background: #FF5C8D; }
+</style>
+</head>
+
+<body>
+
+<script>
+
+const colors = ["blue","green","yellow","pink"];
+for (let i = 0; i < 35; i++) {
+    const b = document.createElement("span");
+    b.className = "particle " + colors[Math.floor(Math.random()*4)];
+    const s = Math.random()*10 + 6;
+    b.style.width = b.style.height = s + "px";
+    b.style.top = Math.random()*100 + "%";
+    b.style.left = Math.random()*100 + "%";
+    b.style.animationDelay = Math.random()*5 + "s";
+    document.body.appendChild(b);
+}
+</script>
+
+<div class="main">
+    <div class="ranking-container">
+        <h1>🏆 Ranking EcoScan</h1>
+
+       
+        <div class="ranking-item">
+            <span class="posicao">1º</span>
+            <span>Aluno Exemplo</span>
+            <span>999 pts</span>
+        </div>
+
+        <div class="ranking-item">
+            <span class="posicao">2º</span>
+            <span>Aluno Exemplo</span>
+            <span>850 pts</span>
+        </div>
+
+        <div class="ranking-item">
+            <span class="posicao">3º</span>
+            <span>Aluno Exemplo</span>
+            <span>720 pts</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="navbar">
+  <a href="/perfil">👤</a>
+  <a href="/home">🏠</a>
+  <a href="/config">⚙️</a>
+</div>
+
+</body>
+</html>

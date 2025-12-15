@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configurações - IFPE + Inteligente</title>
+
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    linear-gradient(180deg,#6d27f5cc 0%,#3a52e0cc 50%,#263d9dcc 100%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* LOADING */
+#loading{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg,#7A2BFF,#19CFFF);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.recycle{
+  font-size:70px;
+  animation:spin 1.5s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+}
+
+/* PARTICULAS */
+.particle{
+  position:absolute;
+  border-radius:50%;
+  opacity:.8;
+  animation:float 6s infinite ease-in-out;
+  z-index:0;
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
+}
+
+.blue{background:#00C2FF}
+.green{background:#11FF89}
+.yellow{background:#FFD447}
+.pink{background:#FF5C8D}
+
+/* CONTAINER */
+.container{
+  width:100%;
+  max-width:420px;
+  padding:20px 20px 90px;
+  position:relative;
+  z-index:2;
+}
+
+/* VOLTAR */
+.back-btn{
+  position:absolute;
+  top:15px;
+  left:15px;
+  font-size:28px;
+  color:#FF5C8D;
+  text-decoration:none;
+}
+
+/* LOGO */
+.logo{
+  width:160px;
+  display:block;
+  margin:40px auto 15px;
+}
+
+/* TITULOS */
+.titulo-principal{
+  text-align:center;
+  font-size:16px;
+  opacity:.9;
+}
+.titulo-secundario{
+  text-align:center;
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+/* CARDS */
+.card{
+  padding:18px;
+  border-radius:20px;
+  margin-bottom:16px;
+  font-size:14px;
+}
+
+.card h3{
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.card-azul{background:#1d8aff}
+.card-rosa{background:#ff4fa5}
+.card-verde{background:#2dcc77}
+
+.card a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+/* NAVBAR */
+.navbar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#001a54;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0;
+  z-index:5;
+}
+
+.navbar a{
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+  <div style="text-align:center">
+    <div class="recycle">♻️</div>
+    <h2>IFPE + Inteligente</h2>
+    <p>Carregando configurações...</p>
+  </div>
+</div>
+
+<script>
+window.addEventListener("load",()=>{
+  const l=document.getElementById("loading");
+  l.style.opacity="0";
+  setTimeout(()=>l.remove(),400);
+});
+</script>
+
+<script>
+const colors=["blue","green","yellow","pink"];
+for(let i=0;i<30;i++){
+  const p=document.createElement("span");
+  p.className=`particle ${colors[Math.floor(Math.random()*colors.length)]}`;
+  const s=Math.random()*10+6;
+  p.style.width=s+"px";
+  p.style.height=s+"px";
+  p.style.top=Math.random()*100+"%";
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDelay=Math.random()*5+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+<a href="/home" class="back-btn">←</a>
+
+<div class="container">
+
+<img src="{{ url_for('static', filename='logo-removebg-preview.png') }}" class="logo">
+
+<p class="titulo-principal">PLATAFORMA</p>
+<h1 class="titulo-secundario">IFPE + INTELIGENTE</h1>
+
+<div class="card card-azul">
+  <h3>👤 CONTA</h3>
+  <p>Editar dados</p>
+  <p>Trocar senha</p>
+</div>
+
+<div class="card card-rosa">
+  <h3>🧩 PLATAFORMA</h3>
+  <p>Idioma</p>
+  <p>Acessibilidade</p>
+  <p>Notificações</p>
+</div>
+
+<div class="card card-verde">
+  <h3>📌 SOBRE:</h3>
+  <p>Desenvolvido por Integra Tech</p>
+  <p>Versão 1.0</p>
+</div>
+
+<a href="/logout" class="card card-verde" style="text-align:center;font-weight:700;">
+  Deslogar
+</a>
+
+</div>
+
+<div class="navbar">
+  <a href="/perfil">👤</a>
+  <a href="/home">🏠</a>
+  <a href="/config">⚙️</a>
+</div>
+
+</body>
+</html>

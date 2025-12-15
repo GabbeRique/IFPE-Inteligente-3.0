@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil - IFPE + Inteligente</title>
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+
+<style>
+  #loading{
+  position:fixed;
+  inset:0;
+  background: linear-gradient(180deg, #7A2BFF 0%, #19CFFF 100%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+.header{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.header img{
+  width:90px;
+  margin-bottom:10px;
+}
+
+.header h1{
+  font-size:22px;
+  font-weight:700;
+}
+
+.header h2{
+  font-size:18px;
+  font-weight:600;
+}
+
+
+.loader-box{
+  text-align:center;
+  color:#fff;
+}
+
+.recycle{
+  font-size:70px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom:10px;
+}
+
+.loader-box h2{
+  font-size:22px;
+  font-weight:700;
+}
+
+.loader-box p{
+  font-size:14px;
+  opacity:.95;
+}
+
+/* animação */
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background: linear-gradient(180deg, #7A2BFF 0%, #4B5BFF 50%, #2E3C9E 100%);
+  color:white;
+  overflow-x:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ===== PARTICULAS ===== */
+.particle{
+  position:absolute;
+  border-radius:50%;
+  opacity:.9;
+  animation: float 6s ease-in-out infinite;
+  z-index:-1;
+  pointer-events:none;
+}
+
+.blue{background:#00C2FF}
+.green{background:#11FF89}
+.yellow{background:#FFD447}
+.pink{background:#FF5C8D}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+  100%{transform:translateY(0)}
+}
+
+/* ===== RESTO DO SEU CSS (INALTERADO) ===== */
+.container{
+  width:100%;
+  max-width:420px;
+  padding:20px;
+  text-align:center;
+  z-index:2;
+}
+
+.logo{
+  width:140px;
+  margin:15px auto;
+  display:block;
+}
+
+.foto-perfil{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  border:4px solid white;
+  margin:15px auto;
+  object-fit:cover;
+}
+
+.card-azul{
+  background:#0e75ff;
+  padding:18px;
+  border-radius:20px;
+  margin-top:15px;
+  text-align:left;
+}
+
+.card-verde{
+  background:linear-gradient(180deg,#4fe4b4,#3cc486);
+  padding:18px;
+  border-radius:20px;
+  margin-top:20px;
+  text-align:left;
+}
+
+.editar-btn{
+  display:block;
+  width:70%;
+  margin:30px auto;
+  background:#FFC640;
+  color:#5b4300;
+  padding:12px;
+  text-decoration:none;
+  border-radius:40px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.navbar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#0A1B7E;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+}
+
+/* POPUP */
+#popupEditar{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+
+#popupEditar .box{
+  background:#0e75ff;
+  padding:20px;
+  width:90%;
+  max-width:350px;
+  border-radius:20px;
+  text-align:center;
+}
+
+#popupEditar input{
+  width:100%;
+  padding:10px;
+  margin-bottom:8px;
+  border:none;
+  border-radius:10px;
+}
+
+.botoes{
+  display:flex;
+  gap:10px;
+}
+
+.botoes button{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+    <!-- LOADING SCREEN -->
+<div id="loading">
+  <div class="loader-box">
+    <div class="recycle">♻️</div>
+    <h2>IFPE + Inteligente</h2>
+    <p>Carregando práticas sustentáveis...</p>
+  </div>
+</div>
+<script>
+window.addEventListener("load", () => {
+  const loading = document.getElementById("loading");
+  loading.style.opacity = "0";
+  loading.style.transition = "opacity .4s ease";
+
+  setTimeout(() => {
+    loading.style.display = "none";
+  }, 400);
+});
+</script>
+
+<div class="container">
+
+<img src="static\logo-removebg-preview.png" class="logo">
+
+<img id="fotoPerfil"
+     src="{{ usuario.foto if usuario.foto else 'fotoexemplo.jpg' }}"
+     class="foto-perfil">
+
+<div class="card-azul">
+  <h3>MEUS DADOS:</h3>
+  <p><b>NOME:</b> <span id="nomeTxt">{{ usuario.nome }}</span></p>
+  <p><b>CURSO:</b> <span id="cursoTxt">{{ usuario.curso }}</span></p>
+  <p><b>TURMA:</b> <span id="turmaTxt">{{ usuario.turma }}</span></p>
+</div>
+
+<div class="card-verde">
+  <h3>ESTATÍSTICAS CONSOLIDADAS:</h3>
+  <p><b>PONTOS ECOSCAN:</b> {{ usuario.pontos }} pts</p>
+  
+</div>
+
+<a href="#" class="editar-btn" onclick="abrirPopup()">Editar perfil</a>
+
+</div>
+
+<div class="navbar">
+  <a href="/perfil">👤</a>
+  <a href="/home">🏠</a>
+  <a href="/config">⚙️</a>
+</div>
+<!-- POPUP -->
+<div id="popupEditar">
+  <div class="box">
+    <h3>Editar Perfil</h3>
+
+    <input id="editNome" placeholder="Nome">
+    <input id="editCurso" placeholder="Curso">
+    <input id="editTurma" placeholder="Turma">
+
+    <input type="file" id="editFoto" accept="image/*">
+
+    <p style="font-size:13px;">⚠️ Pontos não podem ser alterados</p>
+
+    <div class="botoes">
+      <button onclick="fecharPopup()" style="background:#FF5C8D;color:white">Cancelar</button>
+      <button onclick="salvarPerfil()" style="background:#11FF89;color:#003d20">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<span id="userId" style="display:none;">{{ session['user'] }}</span>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA23RqXJ2Z92E-B19hajBi5uumh6XbGvpw",
+  authDomain: "integra-tech.firebaseapp.com",
+  projectId: "integra-tech",
+  messagingSenderId: "596713894710",
+  appId: "1:596713894710:web:d39d614a6d771e9e88b997"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ⚠️ TRIM evita erro silencioso
+const userId = document.getElementById("userId").textContent.trim();
+
+window.abrirPopup = () => {
+  editNome.value = nomeTxt.textContent;
+  editCurso.value = cursoTxt.textContent;
+  editTurma.value = turmaTxt.textContent;
+  popupEditar.style.display = "flex";
+};
+
+window.fecharPopup = () => {
+  popupEditar.style.display = "none";
+};
+
+window.salvarPerfil = async () => {
+  if (!userId) {
+    alert("Sessão inválida");
+    return;
+  }
+
+  const dados = {
+    nome: editNome.value,
+    curso: editCurso.value,
+    turma: editTurma.value
+  };
+
+  const foto = editFoto.files[0];
+
+  try {
+    if (foto) {
+      const formData = new FormData();
+      formData.append("file", foto);
+      formData.append("upload_preset", "foto_perfil");
+
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dvb5l091v/image/upload",
+        { method: "POST", body: formData }
+      );
+
+      const data = await res.json();
+
+      if (!data.secure_url) {
+        console.error(data);
+        alert("Erro no upload da imagem");
+        return;
+      }
+
+      dados.foto = data.secure_url;
+    }
+
+    await updateDoc(doc(db, "usuarios", userId), dados);
+
+    alert("Perfil atualizado!");
+    location.reload();
+
+  } catch (e) {
+    console.error(e);
+    alert("Erro ao salvar perfil");
+  }
+};
+</script>
+<script>
+const colors = ["blue","green","yellow","pink"];
+
+for(let i=0;i<30;i++){
+  const b = document.createElement("span");
+  b.className = `particle ${colors[Math.floor(Math.random()*colors.length)]}`;
+
+  const s = Math.floor(Math.random()*10) + 6;
+  b.style.width = s + "px";
+  b.style.height = s + "px";
+  b.style.top = Math.random() * 100 + "%";
+  b.style.left = Math.random() * 100 + "%";
+  b.style.animationDelay = Math.random() * 5 + "s";
+
+  document.body.appendChild(b);
+}
+</script>
+
+
+</body>
+</html>

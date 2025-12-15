@@ -1,0 +1,65 @@
+body {
+    background-image: url("static\imgfundoo.png");
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0A0F2C, #1B255A);
+    color: white;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding-top: 40px;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    background: #4CAF50;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: #3a9e40;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.15);
+}

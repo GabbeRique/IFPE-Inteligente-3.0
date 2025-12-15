@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home - IFPE + Inteligente</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background: linear-gradient(180deg, #7A2BFF 0%, #4B5BFF 50%, #2E3C9E 100%);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* partículas */
+.particle{
+  position:absolute;
+  border-radius:50%;
+  opacity:.9;
+  animation: float 6s ease-in-out infinite;
+  z-index: -1;              
+  pointer-events:none; 
+}
+.blue{background:#00C2FF}
+.green{background:#11FF89}
+.yellow{background:#FFD447}
+.pink{background:#FF5C8D}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+  100%{transform:translateY(0)}
+}
+
+.container{
+  max-width:420px;
+  margin:0 auto;
+  padding:20px 18px 90px;
+  z-index:2;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.header img{
+  width:90px;
+  margin-bottom:10px;
+}
+
+.header h1{
+  font-size:22px;
+  font-weight:700;
+}
+
+.header h2{
+  font-size:18px;
+  font-weight:600;
+}
+
+.card-app{
+  border-radius:22px;
+  padding:18px 16px;
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  box-shadow:0 8px 18px rgba(0,0,0,.25);
+}
+
+.card-app img{
+  width:42px;
+}
+
+.card-app h3{
+  font-size:18px;
+  font-weight:700;
+}
+
+.card-app p{
+  font-size:14px;
+  opacity:.95;
+}
+.card-link{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card-app{
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card-app:active{
+  transform: scale(0.97);
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+}
+
+.ecoscan{background:#19CFFF}
+.flow{background:#43E06C}
+.helpme{background:#F6C445}
+
+.navbar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#0A1B7E;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+  z-index:1;
+}
+
+.navbar a{
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+/* ===== LOADING SCREEN ===== */
+#loading{
+  position:fixed;
+  inset:0;
+  background: linear-gradient(180deg, #7A2BFF 0%, #19CFFF 100%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.loader-box{
+  text-align:center;
+  color:#fff;
+}
+
+.recycle{
+  font-size:70px;
+  animation: spin 1.5s linear infinite;
+  margin-bottom:10px;
+}
+
+.loader-box h2{
+  font-size:22px;
+  font-weight:700;
+}
+
+.loader-box p{
+  font-size:14px;
+  opacity:.95;
+}
+
+/* animação */
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+</style>
+</head>
+<body>
+  <!-- LOADING SCREEN -->
+<div id="loading">
+  <div class="loader-box">
+    <div class="recycle">♻️</div>
+    <h2>IFPE + Inteligente</h2>
+    <p>Carregando práticas sustentáveis...</p>
+  </div>
+</div>
+<script>
+window.addEventListener("load", () => {
+  const loading = document.getElementById("loading");
+  loading.style.opacity = "0";
+  loading.style.transition = "opacity .4s ease";
+
+  setTimeout(() => {
+    loading.style.display = "none";
+  }, 400);
+});
+</script>
+
+
+<script>
+const colors=["blue","green","yellow","pink"];
+for(let i=0;i<30;i++){
+  const b=document.createElement('span');
+  b.className=`particle ${colors[Math.floor(Math.random()*colors.length)]}`;
+  const s=Math.floor(Math.random()*10)+6;
+  b.style.width=s+'px';
+  b.style.height=s+'px';
+  b.style.top=Math.random()*100+'%';
+  b.style.left=Math.random()*100+'%';
+  b.style.animationDelay=Math.random()*5+'s';
+  document.body.appendChild(b);
+}
+</script>
+
+<div class="container">
+
+  <div class="header">
+    <img src="{{ url_for('static', filename='logo-removebg-preview.png') }}">
+    <h1>PLATAFORMA</h1>
+    <h2>IFPE +INTELIGENTE</h2>
+  </div>
+
+  <a href="/ecoscan" class="card-link">
+  <div class="card-app ecoscan">
+    <img src="{{ url_for('static', filename='qr.png') }}">
+    <div>
+      <h3>EcoScan IFPE</h3>
+      <p>Descarte sustentável com pontos.</p>
+    </div>
+  </div>
+</a>
+
+
+  <a href="/ifpeflow" class="card-link">
+  <div class="card-app flow">
+    <img src="{{ url_for('static',filename='flow.png') }}">
+    <div>
+      <h3>IFPE Flow</h3>
+      <p>Lotação e disponibilidade do campus em tempo real.</p>
+    </div>
+  </div>
+</a>
+
+  <a href="/helpme" class="card-link">
+  <div class="card-app helpme">
+    <img src="{{ url_for('static', filename='help.png') }}">
+    <div>
+      <h3>HelpMe IFPE</h3>
+      <p>Seu assistente virtual acadêmico</p>
+    </div>
+  </div>
+</a>
+
+</div>
+
+<div class="navbar">
+  <a href="/perfil">👤</a>
+  <a href="/home">🏠</a>
+  <a href="/config">⚙️</a>
+</div>
+
+</body>
+</html>
