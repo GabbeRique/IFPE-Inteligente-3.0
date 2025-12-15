@@ -217,7 +217,17 @@ for(let i=0;i<30;i++){
   document.body.appendChild(b);
 }
 </script>
-
+<script>
+window.addEventListener("load", () => {
+  const loading = document.getElementById("loading");
+  if (loading) {
+    loading.style.opacity = "0";
+    setTimeout(() => {
+      loading.style.display = "none";
+    }, 400);
+  }
+});
+</script>
 <div class="container">
   <a href="/" class="back">←</a>
 
